@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+
+
+
+<div id="app">
+  <h1>La méthode GTD</h1>
+  <h2>Inscrivez ce que vous avez à faire et laissez-vous porter</h2>
+
+  <input class="task-input" v-model="newTask" @keyup.enter="addTask" placeholder="Ajouter une tâche..." /><br>
+  <label for="duration">Durée estimée :</label>
+  <select id="duration" v-model="taskDuration">
+    <option value="moins-de-deux-minutes">Moins de 2 minutes</option>
+    <option value="plus-de-deux-minutes">Plus de 2 minutes</option>
+  </select><br>
+  <button class= "faisablebt" @click="validateFeasibleTask">Faisable</button><br>
+  <button class= "nonfaisablebt" @click="validateNotFeasibleTask">Non Faisable</button>
+
+  <h2>À faire tout de suite</h2>
+  <ul class="task-list">
+    <li class="task-item" v-for="(task, index) in tasks.todoNow" :key="index">
+      {{ task.text }}
+      <span class="feasible-task">Faisable</span>
+      <span class="task-duration">{{ task.duration }}</span>
+      <button @click="markTaskAsDone(index, 'todoNow')">Fait</button>
+    </li>
+  </ul>
+
+  <h2>À faire dès que possible</h2>
+  <ul class="task-list">
+    <li class="task-item" v-for="(task, index) in tasks.todoLater" :key="index">
+      {{ task.text }}
+      <span class="feasible-task">Faisable</span>
+      <span class="task-duration">{{ task.duration }}</span>
+      <input type="date" v-model="task.dueDate" class="task-due-date">
+      <button @click="markTaskAsDone(index, 'todoLater')">Fait</button>
+    </li>
+  </ul>
+
+  <h2>Tâches Non Faisables</h2>
+  <ul class="task-list">
+    <li class="task-item" v-for="(task, index) in notFeasibleTasks" :key="index">
+      {{ task.text }}
+      <span class="not-feasible-task">Non Faisable</span>
+      <span class="task-duration">{{ task.duration }}</span>
+      <button @click="removeTask(index, 'not-feasible')">Supprimer</button>
+    </li>
+  </ul>
+
+  <h2>Faites</h2>
+  <ul class="task-list">
+    <li class="task-item" v-for="(task, index) in doneTasks" :key="index">
+      {{ task.text }}
+      <span class="task-done">Fait</span>
+      <button @click="archiveTask(index, 'doneTasks')">Archiver</button>
+    </li>
+  </ul>
+
+  <h2>Tâches Archivées</h2>
+  <ul class="task-list">
+    <li class="task-item" v-for="(task, index) in archivedTasks" :key="index">
+      {{ task.text }}
+      <span class="archived-task">Archivée</span>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<script>
+  window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+  ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>

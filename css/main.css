@@ -1,0 +1,82 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#app {
+  text-align: center;
+}
+
+.task-input {
+  width: 300px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+h2 {
+  margin-top: 20px; /* Espacement entre les deux listes de tâches */
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin: 8px 0;
+  padding: 8px;
+}
+
+.faisablebt {
+  background-color: #34ad19;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.nonfaisablebt {
+  background-color: #e30f0f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.task-item button {
+  background-color: #ff5050;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.feasible-task {
+  color: green; /* Couleur pour les tâches faisables */
+  font-weight: bold;
+  margin-left: 10px; /* Espacement entre le texte de la tâche et la faisabilité */
+}
+
+.not-feasible-task {
+  color: red; /* Couleur pour les tâches non faisables */
+  font-weight: bold;
+  margin-left: 10px; /* Espacement entre le texte de la tâche et la faisabilité */
+}
+
+/* Style pour les tâches terminées */
+.donetask {
+  color: blue;
+  font-weight: bold;
+  margin-left: 10px;
+}
