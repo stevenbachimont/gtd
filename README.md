@@ -16,3 +16,7 @@ videz-vous l'esprit
 archivez
 éliminez
 terminez
+
+
+
+à faire : un back en mode log et collaboratif.
