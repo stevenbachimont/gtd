@@ -6,21 +6,30 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #6c6c6c;
 }
 
 #app {
   text-align: center;
+  max-width: 600px;
+  padding: 20px;
+  background-color: rgba(144, 173, 136, 0.74);
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .task-input {
-  width: 300px;
+  width: 100%;
   padding: 8px;
   font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #d0d3d2;
 }
 
 h2 {
-  margin-top: 20px; /* Espacement entre les deux listes de tâches */
+  margin-top: 20px;
 }
 
 .task-list {
@@ -35,48 +44,66 @@ h2 {
   border: 1px solid #ccc;
   background-color: #fff;
   margin: 8px 0;
-  padding: 8px;
+  padding: 12px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.faisablebt {
+.faisablebt,
+.nonfaisablebt,
+.task-item button {
   background-color: #34ad19;
   color: white;
   border: none;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 6px 12px;
+  margin-left: 10px;
+  border-radius: 3px;
 }
 
 .nonfaisablebt {
   background-color: #e30f0f;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
 }
 
 .task-item button {
   background-color: #ff5050;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
+}
+
+.feasible-task,
+.not-feasible-task,
+.donetask {
+  font-weight: bold;
+  margin-left: 10px;
 }
 
 .feasible-task {
-  color: green; /* Couleur pour les tâches faisables */
-  font-weight: bold;
-  margin-left: 10px; /* Espacement entre le texte de la tâche et la faisabilité */
+  color: green;
 }
 
 .not-feasible-task {
-  color: red; /* Couleur pour les tâches non faisables */
-  font-weight: bold;
-  margin-left: 10px; /* Espacement entre le texte de la tâche et la faisabilité */
+  color: red;
 }
 
-/* Style pour les tâches terminées */
 .donetask {
   color: blue;
-  font-weight: bold;
-  margin-left: 10px;
+}
+
+.archived-task {
+  color: gray;
+  text-decoration: line-through;
+}
+
+@media screen and (max-width: 600px) {
+  .task-input {
+    font-size: 14px; /
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .task-input {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
 }
