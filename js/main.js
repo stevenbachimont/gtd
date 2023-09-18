@@ -34,17 +34,22 @@ new Vue({
           done: false,
         };
 
-        if (this.taskDuration === "plus-de-deux-minutes") {
-          this.tasks.todoLater.push(task);
-        } else {
+        if (this.taskDuration === "moins-de-deux-minutes") {
           task.done = true;
           this.tasks.todoNow.push(task);
+        } else if (this.taskDuration === "plus-de-deux-minutes") {
+          this.tasks.todoLater.push(task);
+        } else if (this.taskDuration === "hors-competences") {
+          this.notFeasibleTasks.push(task);
         }
 
         this.newTask = "";
       }
     },
-removeTask(index, listType) {
+    updateTaskDuration() {
+      this.addTask();
+    },
+    removeTask(index, listType) {
       if (listType === "not-feasible") {
         this.notFeasibleTasks.splice(index, 1);
       } else if (listType === "todoLater") {
@@ -57,47 +62,25 @@ removeTask(index, listType) {
         }
       }
     },
-    validateFeasibleTask() {
-      this.addTask();
-    },
-    validateNotFeasibleTask() {
-      const task = {
-        text: this.newTask.trim(),
-        duration: this.taskDuration,
-      };
-      this.notFeasibleTasks.push(task);
-      this.newTask = "";
-    },
     updateDueDate(task, index) {
       const dueDate = prompt("Veuillez saisir une nouvelle date pour cette tâche (AAAA-MM-JJ) :");
       if (dueDate) {
         this.tasks.todoLater[index].dueDate = dueDate;
       }
     },
-    sortByDuration() {
-      this.tasks.todoNow.sort((a, b) => {
-        if (a.duration === "moins-de-deux-minutes" && b.duration !== "moins-de-deux-minutes") {
-          return -1;
-        } else if (a.duration !== "moins-de-deux-minutes" && b.duration === "moins-de-deux-minutes") {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-      this.tasks.todoLater.sort((a, b) => {
-        if (a.duration === "moins-de-deux-minutes" && b.duration !== "moins-de-deux-minutes") {
-          return -1;
-        } else if (a.duration !== "moins-de-deux-minutes" && b.duration === "moins-de-deux-minutes") {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    },
     archiveTask(index, list) {
       const taskToArchive = this[list][index];
-      this.archivedTasks.push(taskToArchive);
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+      const archivedTask = {
+        text: taskToArchive.text,
+        date: formattedDate,
+      };
+      this.archivedTasks.push(archivedTask);
       this[list].splice(index, 1);
+    },
+    deleteArchivedTask(index) {
+      this.archivedTasks.splice(index, 1);
     },
     markTaskAsDone(index, list) {
       const taskToMove = this.tasks[list][index];
@@ -105,7 +88,6 @@ removeTask(index, listType) {
       this.doneTasks.push(taskToMove);
       this.tasks[list].splice(index, 1);
     },
-
     saveData() {
       const dataToSave = {
         newTask: this.newTask,
