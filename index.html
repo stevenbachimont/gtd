@@ -32,20 +32,19 @@
   <h2>Inscrivez ce que vous avez à faire et laissez-vous porter</h2>
 
   <input class="task-input" v-model="newTask" @keyup.enter="addTask" placeholder="Ajouter une tâche..." /><br>
-  <label for="duration">Durée estimée :</label>
-  <select id="duration" v-model="taskDuration">
-    <option value="moins-de-deux-minutes">Moins de 2 minutes</option>
-    <option value="plus-de-deux-minutes">Plus de 2 minutes</option>
-  </select><br>
-  <button class= "faisablebt" @click="validateFeasibleTask">Faisable</button><br>
-  <button class= "nonfaisablebt" @click="validateNotFeasibleTask">Non Faisable</button>
+
+  <select id="duration" v-model="taskDuration" @change="updateTaskDuration">
+    <option value="moins-de-deux-minutes">En moins de 2 minutes</option>
+    <option value="plus-de-deux-minutes">En plus de 2 minutes</option>
+    <option value="hors-competences">Hors compétences</option>
+  </select>
+
 
   <h2>À faire tout de suite</h2>
   <ul class="task-list">
     <li class="task-item" v-for="(task, index) in tasks.todoNow" :key="index">
       {{ task.text }}
       <span class="feasible-task">Faisable</span>
-      <span class="task-duration">{{ task.duration }}</span>
       <button @click="markTaskAsDone(index, 'todoNow')">Fait</button>
     </li>
   </ul>
@@ -55,23 +54,21 @@
     <li class="task-item" v-for="(task, index) in tasks.todoLater" :key="index">
       {{ task.text }}
       <span class="feasible-task">Faisable</span>
-      <span class="task-duration">{{ task.duration }}</span>
       <input type="date" v-model="task.dueDate" class="task-due-date">
       <button @click="markTaskAsDone(index, 'todoLater')">Fait</button>
     </li>
   </ul>
 
-  <h2>Tâches Non Faisables</h2>
+  <h2>Non Faisables</h2>
   <ul class="task-list">
     <li class="task-item" v-for="(task, index) in notFeasibleTasks" :key="index">
       {{ task.text }}
       <span class="not-feasible-task">Non Faisable</span>
-      <span class="task-duration">{{ task.duration }}</span>
       <button @click="removeTask(index, 'not-feasible')">Supprimer</button>
     </li>
   </ul>
 
-  <h2>Faites</h2>
+  <h2>Fait</h2>
   <ul class="task-list">
     <li class="task-item" v-for="(task, index) in doneTasks" :key="index">
       {{ task.text }}
@@ -80,11 +77,12 @@
     </li>
   </ul>
 
-  <h2>Tâches Archivées</h2>
+  <h2>Archivé</h2>
   <ul class="task-list">
     <li class="task-item" v-for="(task, index) in archivedTasks" :key="index">
-      {{ task.text }}
-      <span class="archived-task">Archivée</span>
+      <span>{{ task.text }}</span>
+      <span class="archived-date">{{ task.date }}</span>
+      <button @click="deleteArchivedTask(index)">Supprimer</button>
     </li>
   </ul>
 </div>
