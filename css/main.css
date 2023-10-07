@@ -11,7 +11,7 @@ body {
 
 #app {
   text-align: center;
-  max-width: 600px;
+  max-width: 700px;
   padding: 20px;
   margin: 20px;
   background-color: rgba(144, 173, 136, 0.74);
@@ -22,7 +22,7 @@ body {
 
 .task-input {
   width: 100%;
-  padding: 8px;
+  position: relative;
   font-size: 16px;
   margin-bottom: 10px;
   border-radius: 5px;
